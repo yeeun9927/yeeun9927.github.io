@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interior Design Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas class="cursor-grid" aria-hidden="true"></canvas>
+    <main class="portfolio-shell">
+      <section class="profile-panel" aria-label="Designer profile">
+        <div class="brand-box">
+          <p class="eyebrow">Interior Design Portfolio</p>
+          <h1>9GU9G9G9G</h1>
+          <p>
+            A quiet interior design portfolio shaped by structure, light,
+            material texture, and carefully paced daily movement.
+          </p>
+        </div>
+
+        <div class="scroll-copy" tabindex="0" aria-label="About text">
+          <p>01 Circulation defines the first impression.</p>
+          <p>02 Low light softens the edges of a room.</p>
+          <p>03 Material surfaces hold tactile memory.</p>
+          <p>04 Furniture follows the rhythm of daily use.</p>
+          <p>05 Empty walls leave room for seasonal change.</p>
+          <p>06 Private homes need pockets of quiet space.</p>
+          <p>07 Commercial rooms need clear visual flow.</p>
+          <p>08 Lighting reveals form and hides excess.</p>
+          <p>09 Color is a relationship, not a single mood.</p>
+          <p>10 Storage works best as a calm background.</p>
+          <p>11 Floor texture changes the speed of movement.</p>
+          <p>12 Metal, wood, and textile create temperature.</p>
+          <p>13 Small rooms benefit from strong alignment.</p>
+          <p>14 Large rooms need low, precise details.</p>
+          <p>15 Each project begins by recording site light.</p>
+          <p>16 Lifestyle lasts longer than a floor plan.</p>
+          <p>17 Window position shapes the furniture language.</p>
+          <p>18 Neat finishes support complex routines.</p>
+          <p>19 Good rooms extend time before explanation.</p>
+          <p>20 We design density of living, not only scenes.</p>
+          <p>21 A narrow entry can still feel generous.</p>
+          <p>22 Shadows clarify the depth of quiet surfaces.</p>
+          <p>23 Built-in pieces keep the room visually steady.</p>
+          <p>24 Each corner needs a reason to exist.</p>
+          <p>25 Soft partitions hold privacy without closing space.</p>
+          <p>26 Mirrors should extend light, not decorate noise.</p>
+          <p>27 A table can become the center of the plan.</p>
+          <p>28 Ceiling lines guide attention across the room.</p>
+          <p>29 The best materials age with calm confidence.</p>
+          <p>30 Door handles mark the scale of the hand.</p>
+          <p>31 Open shelves need rhythm, depth, and restraint.</p>
+          <p>32 A room feels larger when its edges are clear.</p>
+          <p>33 Hidden light gives furniture a softer outline.</p>
+          <p>34 Texture can replace unnecessary ornament.</p>
+          <p>35 A good plan protects both movement and pause.</p>
+          <p>36 The quietest detail often holds the whole space.</p>
+          <p>37 Natural light changes the project every hour.</p>
+          <p>38 Proportion is the invisible material of a room.</p>
+          <p>39 We edit until the room can breathe on its own.</p>
+          <p>40 Interior design begins after the first drawing.</p>
+        </div>
+
+        <address class="contact-row">
+          <a href="mailto:hello@studioraum.kr">hello@studioraum.kr</a>
+          <a href="tel:+821012345678">+82 10 1234 5678</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">@studio.raum</a>
+        </address>
+      </section>
+
+      <section class="project-panel" aria-label="Selected projects">
+        <header class="project-header">
+          <h2>Project</h2>
+        </header>
+
+        <div class="project-meta">
+          <div>
+            <p class="meta-label">Residence</p>
+            <p>Seongsu Apartment Renewal, 94m2, Seoul.</p>
+          </div>
+          <div>
+            <p class="meta-label">Scope</p>
+            <p>Planning, material direction, furniture styling.</p>
+          </div>
+        </div>
+
+        <div class="slider" aria-label="Project image slider">
+          <button class="slide-button prev" type="button" aria-label="Previous project"></button>
+          <div class="slides">
+            <article class="slide is-active">
+              <img
+                src="image/project1-01.png"
+                alt="Interior project image 1"
+              />
+            </article>
+            <article class="slide">
+              <img
+                src="image/project1-02.png"
+                alt="Interior project image 2"
+              />
+            </article>
+            <article class="slide">
+              <img
+                src="image/project1-03.png"
+                alt="Interior project image 3"
+              />
+            </article>
+            <article class="slide">
+              <img
+                src="image/project1-04.png"
+                alt="Interior project image 4"
+              />
+            </article>
+            <article class="slide">
+              <img
+                src="image/project1-05.png"
+                alt="Interior project image 5"
+              />
+            </article>
+            <article class="slide">
+              <img
+                src="image/project1-06.png"
+                alt="Interior project image 6"
+              />
+            </article>
+          </div>
+          <button class="slide-button next" type="button" aria-label="Next project"></button>
+          <div class="image-caption" aria-hidden="true">
+            <span class="caption-title">Project 01</span>
+            <span class="caption-text">Interior study with soft light and layered material texture.</span>
+          </div>
+        </div>
+
+        <div class="slide-status" aria-live="polite">
+          <span class="current-index">01</span>
+          <span>/</span>
+          <span>06</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
