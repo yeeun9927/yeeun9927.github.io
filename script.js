@@ -1,103 +1,101 @@
-const slides = Array.from(document.querySelectorAll(".slide"));
-const prevButton = document.querySelector(".prev");
-const nextButton = document.querySelector(".next");
-const currentIndex = document.querySelector(".current-index");
-const slider = document.querySelector(".slider");
-const imageCaption = document.querySelector(".image-caption");
-const captionTitle = document.querySelector(".caption-title");
-const captionText = document.querySelector(".caption-text");
-const slideDescriptions = [
-  "Interior study with soft light, layered material texture, and a calm circulation path for everyday movement.",
-  "Compact residence plan focused on clean storage, quiet thresholds, and furniture placement that keeps the room open.",
-  "Living area proposal using neutral tones, low visual weight, and warm surfaces to create a relaxed domestic rhythm.",
-  "Material direction study for a bright residential renewal, balancing reflective finishes with grounded natural textures.",
-  "Quiet bedroom scene with soft surfaces, reduced furniture lines, and lighting planned for rest and late evening use.",
-  "Curated living space balancing object display, hidden storage, and comfortable proportions for daily gathering.",
-];
+const pages = Array.from(document.querySelectorAll("[data-page]"));
+const pageLinks = Array.from(document.querySelectorAll("[data-page-link]"));
+const projectCards = Array.from(document.querySelectorAll("[data-project-card]"));
+const previewImage = document.querySelector(".preview-image");
+const previewPlaceholder = document.querySelector(".preview-placeholder");
+const previewTitle = document.querySelector(".preview-title");
+const previewMeta = document.querySelector(".preview-meta");
+const interiorIndex = document.querySelector('[data-interior-view="index"]');
+const interiorDetail = document.querySelector('[data-interior-view="detail"]');
+const detailBack = document.querySelector("[data-detail-back]");
 
-let activeIndex = 0;
-let slideTimer = null;
-let captionTarget = { x: 0, y: 0 };
-let captionPosition = { x: 0, y: 0 };
-let captionFrame = null;
-
-function updateCaption() {
-  captionTitle.textContent = `Project ${String(activeIndex + 1).padStart(2, "0")}`;
-  captionText.textContent = slideDescriptions[activeIndex];
+function closeProjectDetail() {
+  interiorDetail.hidden = true;
+  interiorIndex.classList.add("is-active");
+  window.scrollTo(0, 0);
 }
 
-function showSlide(index, direction = "forward") {
-  const previousIndex = activeIndex;
+function showPage(pageName, updateHash = true) {
+  const requestedPage = pages.some((page) => page.dataset.page === pageName)
+    ? pageName
+    : "home";
 
-  activeIndex = (index + slides.length) % slides.length;
-
-  if (previousIndex === activeIndex) {
-    return;
-  }
-
-  window.clearTimeout(slideTimer);
-  slider.classList.toggle("is-forward", direction === "forward");
-  slider.classList.toggle("is-backward", direction === "backward");
-
-  slides.forEach((slide, slideIndex) => {
-    slide.classList.toggle("is-active", slideIndex === activeIndex);
-    slide.classList.toggle("is-exiting", slideIndex === previousIndex);
+  pages.forEach((page) => {
+    page.classList.toggle("is-active", page.dataset.page === requestedPage);
   });
 
-  currentIndex.textContent = String(activeIndex + 1).padStart(2, "0");
-  updateCaption();
+  pageLinks.forEach((link) => {
+    const isActive = link.dataset.pageLink === requestedPage;
+    link.classList.toggle("is-active", isActive);
+    link.setAttribute("aria-current", isActive ? "page" : "false");
+  });
 
-  slideTimer = window.setTimeout(() => {
-    slides[previousIndex].classList.remove("is-exiting");
-  }, 780);
+  if (requestedPage !== "interior") {
+    closeProjectDetail();
+  }
+
+  document.title = requestedPage === "home"
+    ? "9GU9G9G9G Portfolio"
+    : `${requestedPage.toUpperCase()} | 9GU9G9G9G`;
+
+  window.scrollTo(0, 0);
+
+  if (updateHash && window.location.hash !== `#${requestedPage}`) {
+    window.history.pushState(null, "", `#${requestedPage}`);
+  }
 }
 
-prevButton.addEventListener("click", () => {
-  showSlide(activeIndex - 1, "backward");
+pageLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (link.dataset.pageLink === "interior") {
+      closeProjectDetail();
+    }
+
+    showPage(link.dataset.pageLink);
+  });
 });
 
-nextButton.addEventListener("click", () => {
-  showSlide(activeIndex + 1, "forward");
+window.addEventListener("popstate", () => {
+  showPage(window.location.hash.slice(1) || "home", false);
 });
 
-slider.addEventListener("pointermove", (event) => {
-  const sliderRect = slider.getBoundingClientRect();
+function updateProjectPreview(card) {
+  const imagePath = card.dataset.previewImage;
 
-  captionTarget = {
-    x: event.clientX - sliderRect.left,
-    y: event.clientY - sliderRect.top,
-  };
+  projectCards.forEach((item) => {
+    item.classList.toggle("is-selected", item === card);
+  });
 
-  if (!captionFrame) {
-    captionPosition = { ...captionTarget };
-    captionFrame = requestAnimationFrame(moveCaption);
+  previewTitle.textContent = card.dataset.previewTitle;
+  previewMeta.textContent = card.dataset.previewMeta;
+
+  if (imagePath) {
+    previewImage.src = imagePath;
+    previewImage.hidden = false;
+    previewPlaceholder.hidden = true;
+  } else {
+    previewImage.hidden = true;
+    previewPlaceholder.hidden = false;
   }
-});
-
-slider.addEventListener("pointerleave", () => {
-  window.cancelAnimationFrame(captionFrame);
-  captionFrame = null;
-});
-
-function moveCaption() {
-  captionPosition.x += (captionTarget.x - captionPosition.x) * 0.14;
-  captionPosition.y += (captionTarget.y - captionPosition.y) * 0.14;
-
-  imageCaption.style.setProperty("--caption-x", `${captionPosition.x}px`);
-  imageCaption.style.setProperty("--caption-y", `${captionPosition.y}px`);
-
-  captionFrame = requestAnimationFrame(moveCaption);
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
-    showSlide(activeIndex - 1, "backward");
-  }
+projectCards.forEach((card) => {
+  card.addEventListener("pointerenter", () => updateProjectPreview(card));
+  card.addEventListener("focus", () => updateProjectPreview(card));
+  card.addEventListener("click", () => {
+    updateProjectPreview(card);
 
-  if (event.key === "ArrowRight") {
-    showSlide(activeIndex + 1, "forward");
-  }
+    if (card.dataset.projectCard === "project-01") {
+      interiorIndex.classList.remove("is-active");
+      interiorDetail.hidden = false;
+      window.scrollTo(0, 0);
+    }
+  });
 });
+
+detailBack.addEventListener("click", closeProjectDetail);
 
 const gridCanvas = document.querySelector(".cursor-grid");
 const gridContext = gridCanvas.getContext("2d");
@@ -106,7 +104,6 @@ const cellSize = 4;
 const maxTrail = 960;
 const trailDuration = 4200;
 let activeCell = null;
-let pointerPosition = null;
 let animationFrame = null;
 
 function resizeGridCanvas() {
@@ -121,16 +118,14 @@ function resizeGridCanvas() {
 }
 
 function addTrailCell(x, y) {
-  const now = performance.now();
   const cell = {
     x: Math.floor(x / cellSize),
     y: Math.floor(y / cellSize),
-    time: now,
+    time: performance.now(),
   };
   const lastCell = trail[trail.length - 1];
 
   activeCell = cell;
-  pointerPosition = { x, y };
 
   if (!lastCell || lastCell.x !== cell.x || lastCell.y !== cell.y) {
     trail.push(cell);
@@ -176,12 +171,7 @@ function drawGridTrail() {
     const alpha = Math.min(0.58, fade * (0.1 + sequence * 0.46));
 
     gridContext.fillStyle = `rgba(0, 0, 0, ${alpha})`;
-    gridContext.fillRect(
-      cell.x * cellSize,
-      cell.y * cellSize,
-      cellSize,
-      cellSize,
-    );
+    gridContext.fillRect(cell.x * cellSize, cell.y * cellSize, cellSize, cellSize);
   });
 
   if (activeCell) {
@@ -211,10 +201,9 @@ window.addEventListener("pointermove", (event) => {
 
 window.addEventListener("pointerleave", () => {
   activeCell = null;
-  pointerPosition = null;
   drawGridTrail();
 });
 
 window.addEventListener("resize", resizeGridCanvas);
-updateCaption();
+showPage(window.location.hash.slice(1) || "home", false);
 resizeGridCanvas();

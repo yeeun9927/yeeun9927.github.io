@@ -3,140 +3,172 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interior Design Portfolio</title>
+    <title>9GU9G9G9G Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <canvas class="cursor-grid" aria-hidden="true"></canvas>
-    <main class="portfolio-shell">
-      <section class="profile-panel" aria-label="Designer profile">
-        <div class="brand-box">
-          <p class="eyebrow">Interior Design Portfolio</p>
-          <h1>9GU9G9G9G</h1>
-          <p>
-            A quiet interior design portfolio shaped by structure, light,
-            material texture, and carefully paced daily movement.
-          </p>
+
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="nav-link is-active" href="#home" data-page-link="home">HOME</a>
+        <a class="nav-link" href="#about" data-page-link="about">ABOUT</a>
+        <a class="nav-link" href="#interior" data-page-link="interior">INTERIOR</a>
+        <a class="nav-link" href="#plaster" data-page-link="plaster">PLASTER</a>
+        <a class="nav-link" href="#photography" data-page-link="photography">PHOTOGRAPHY</a>
+        <a class="nav-link" href="#contact" data-page-link="contact">CONTACT</a>
+      </nav>
+    </header>
+
+    <main class="site-pages">
+      <section class="site-page home-page is-active" id="home" data-page="home">
+        <div class="home-center">
+          <h1 class="home-title">1999-2026 PORTFOLOIO</h1>
+        </div>
+      </section>
+
+      <section class="site-page text-page" id="about" data-page="about">
+        <div class="page-heading">
+          <p>01 / PROFILE</p>
+          <h2>ABOUT</h2>
+        </div>
+        <p class="page-copy">
+          A multidisciplinary portfolio exploring space, material, image, and
+          the quiet structures behind everyday experience.
+        </p>
+      </section>
+
+      <section class="site-page interior-page" id="interior" data-page="interior">
+        <div class="interior-index is-active" data-interior-view="index">
+          <section class="project-library" aria-label="Interior project index">
+            <header class="library-header">
+              <h2>INTERIOR</h2>
+              <p>PROJECT INDEX / 01-09</p>
+            </header>
+
+            <div class="project-grid">
+              <button
+                class="project-card project-card-real"
+                type="button"
+                data-project-card="project-01"
+                data-preview-image="image/project1-01.png"
+                data-preview-title="SEONGSU RESIDENCE"
+                data-preview-meta="RESIDENCE / SEOUL / 2026"
+              >
+                <span class="project-thumb ratio-landscape">
+                  <img src="image/project1-01.png" alt="Seongsu residence project" />
+                </span>
+                <span class="project-card-title">01 SEONGSU RESIDENCE</span>
+              </button>
+
+              <button class="project-card" type="button" data-project-card="archive-02" data-preview-title="ARCHIVE PROJECT 02" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-portrait"></span>
+                <span class="project-card-title">02 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-03" data-preview-title="ARCHIVE PROJECT 03" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-wide"></span>
+                <span class="project-card-title">03 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-04" data-preview-title="ARCHIVE PROJECT 04" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-square"></span>
+                <span class="project-card-title">04 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-05" data-preview-title="ARCHIVE PROJECT 05" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-wide"></span>
+                <span class="project-card-title">05 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-06" data-preview-title="ARCHIVE PROJECT 06" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-square"></span>
+                <span class="project-card-title">06 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-07" data-preview-title="ARCHIVE PROJECT 07" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-portrait"></span>
+                <span class="project-card-title">07 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-08" data-preview-title="ARCHIVE PROJECT 08" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-landscape"></span>
+                <span class="project-card-title">08 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="archive-09" data-preview-title="ARCHIVE PROJECT 09" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-square"></span>
+                <span class="project-card-title">09 ARCHIVE</span>
+              </button>
+            </div>
+          </section>
+
+          <aside class="project-preview" aria-live="polite">
+            <div class="preview-frame">
+              <img class="preview-image" src="image/project1-01.png" alt="Selected interior project preview" />
+              <div class="preview-placeholder" hidden></div>
+            </div>
+            <div class="preview-caption">
+              <p class="preview-title">SEONGSU RESIDENCE</p>
+              <p class="preview-meta">RESIDENCE / SEOUL / 2026</p>
+            </div>
+          </aside>
         </div>
 
-        <div class="scroll-copy" tabindex="0" aria-label="About text">
-          <p>01 Circulation defines the first impression.</p>
-          <p>02 Low light softens the edges of a room.</p>
-          <p>03 Material surfaces hold tactile memory.</p>
-          <p>04 Furniture follows the rhythm of daily use.</p>
-          <p>05 Empty walls leave room for seasonal change.</p>
-          <p>06 Private homes need pockets of quiet space.</p>
-          <p>07 Commercial rooms need clear visual flow.</p>
-          <p>08 Lighting reveals form and hides excess.</p>
-          <p>09 Color is a relationship, not a single mood.</p>
-          <p>10 Storage works best as a calm background.</p>
-          <p>11 Floor texture changes the speed of movement.</p>
-          <p>12 Metal, wood, and textile create temperature.</p>
-          <p>13 Small rooms benefit from strong alignment.</p>
-          <p>14 Large rooms need low, precise details.</p>
-          <p>15 Each project begins by recording site light.</p>
-          <p>16 Lifestyle lasts longer than a floor plan.</p>
-          <p>17 Window position shapes the furniture language.</p>
-          <p>18 Neat finishes support complex routines.</p>
-          <p>19 Good rooms extend time before explanation.</p>
-          <p>20 We design density of living, not only scenes.</p>
-          <p>21 A narrow entry can still feel generous.</p>
-          <p>22 Shadows clarify the depth of quiet surfaces.</p>
-          <p>23 Built-in pieces keep the room visually steady.</p>
-          <p>24 Each corner needs a reason to exist.</p>
-          <p>25 Soft partitions hold privacy without closing space.</p>
-          <p>26 Mirrors should extend light, not decorate noise.</p>
-          <p>27 A table can become the center of the plan.</p>
-          <p>28 Ceiling lines guide attention across the room.</p>
-          <p>29 The best materials age with calm confidence.</p>
-          <p>30 Door handles mark the scale of the hand.</p>
-          <p>31 Open shelves need rhythm, depth, and restraint.</p>
-          <p>32 A room feels larger when its edges are clear.</p>
-          <p>33 Hidden light gives furniture a softer outline.</p>
-          <p>34 Texture can replace unnecessary ornament.</p>
-          <p>35 A good plan protects both movement and pause.</p>
-          <p>36 The quietest detail often holds the whole space.</p>
-          <p>37 Natural light changes the project every hour.</p>
-          <p>38 Proportion is the invisible material of a room.</p>
-          <p>39 We edit until the room can breathe on its own.</p>
-          <p>40 Interior design begins after the first drawing.</p>
-        </div>
+        <article class="interior-detail" data-interior-view="detail" hidden>
+          <aside class="detail-sidebar">
+            <button class="detail-back" type="button" data-detail-back>BACK TO INDEX</button>
+            <div class="detail-copy">
+              <p class="detail-number">PROJECT 01 / 2026</p>
+              <h2>SEONGSU RESIDENCE</h2>
+              <p>
+                A residential interior study shaped around quiet circulation,
+                layered natural light, and a restrained material palette.
+              </p>
+              <dl class="detail-meta">
+                <div><dt>LOCATION</dt><dd>SEOUL, KOREA</dd></div>
+                <div><dt>TYPE</dt><dd>RESIDENCE</dd></div>
+                <div><dt>SCOPE</dt><dd>PLANNING, MATERIAL, STYLING</dd></div>
+              </dl>
+            </div>
+          </aside>
 
-        <address class="contact-row">
+          <div class="detail-gallery">
+            <figure><img src="image/project1-02.png" alt="Seongsu residence interior view 2" /></figure>
+            <figure><img src="image/project1-03.png" alt="Seongsu residence interior view 3" /></figure>
+            <figure><img src="image/project1-04.png" alt="Seongsu residence interior view 4" /></figure>
+            <figure><img src="image/project1-05.png" alt="Seongsu residence interior view 5" /></figure>
+            <figure><img src="image/project1-06.png" alt="Seongsu residence interior view 6" /></figure>
+            <figure><img src="image/project1-07.png" alt="Seongsu residence interior view 7" /></figure>
+          </div>
+        </article>
+      </section>
+
+      <section class="site-page text-page" id="plaster" data-page="plaster">
+        <div class="page-heading">
+          <p>03 / MATERIAL</p>
+          <h2>PLASTER</h2>
+        </div>
+        <p class="page-copy">
+          Surface studies shaped through hand, light, aggregate, and repeated
+          layers. Selected work will be added here.
+        </p>
+      </section>
+
+      <section class="site-page text-page" id="photography" data-page="photography">
+        <div class="page-heading">
+          <p>04 / IMAGE</p>
+          <h2>PHOTOGRAPHY</h2>
+        </div>
+        <p class="page-copy">
+          Observations of architecture, objects, and temporary arrangements.
+          Selected photographs will be added here.
+        </p>
+      </section>
+
+      <section class="site-page text-page" id="contact" data-page="contact">
+        <div class="page-heading">
+          <p>05 / CONNECT</p>
+          <h2>CONTACT</h2>
+        </div>
+        <address class="contact-page-links">
           <a href="mailto:hello@studioraum.kr">hello@studioraum.kr</a>
           <a href="tel:+821012345678">+82 10 1234 5678</a>
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">@studio.raum</a>
         </address>
-      </section>
-
-      <section class="project-panel" aria-label="Selected projects">
-        <header class="project-header">
-          <h2>PROJECT</h2>
-        </header>
-
-        <div class="project-meta">
-          <div>
-            <p class="meta-label">Residence</p>
-            <p>Seongsu Apartment Renewal, 94m2, Seoul.</p>
-          </div>
-          <div>
-            <p class="meta-label">Scope</p>
-            <p>Planning, material direction, furniture styling.</p>
-          </div>
-        </div>
-
-        <div class="slider" aria-label="Project image slider">
-          <button class="slide-button prev" type="button" aria-label="Previous project"></button>
-          <div class="slides">
-            <article class="slide is-active">
-              <img
-                src="image/project1-01.png"
-                alt="Interior project image 1"
-              />
-            </article>
-            <article class="slide">
-              <img
-                src="image/project1-02.png"
-                alt="Interior project image 2"
-              />
-            </article>
-            <article class="slide">
-              <img
-                src="image/project1-03.png"
-                alt="Interior project image 3"
-              />
-            </article>
-            <article class="slide">
-              <img
-                src="image/project1-04.png"
-                alt="Interior project image 4"
-              />
-            </article>
-            <article class="slide">
-              <img
-                src="image/project1-05.png"
-                alt="Interior project image 5"
-              />
-            </article>
-            <article class="slide">
-              <img
-                src="image/project1-06.png"
-                alt="Interior project image 6"
-              />
-            </article>
-          </div>
-          <button class="slide-button next" type="button" aria-label="Next project"></button>
-          <div class="image-caption" aria-hidden="true">
-            <span class="caption-title">Project 01</span>
-            <span class="caption-text">Interior study with soft light and layered material texture.</span>
-          </div>
-        </div>
-
-        <div class="slide-status" aria-live="polite">
-          <span class="current-index">01</span>
-          <span>/</span>
-          <span>06</span>
-        </div>
       </section>
     </main>
 
