@@ -369,13 +369,16 @@ body {
   line-height: 1.45;
 }
 
+/* 연락처: 화면 정중앙 */
 .contact-page-links {
   position: absolute;
-  right: clamp(18px, 3vw, 42px);
-  bottom: clamp(30px, 6vh, 70px);
+  left: 50%;
+  top: calc(50% + 18px);
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  text-align: center;
   gap: 10px;
   font-family: Arial, "Helvetica Neue", sans-serif;
   font-size: 12px;
@@ -419,6 +422,11 @@ body {
   /* 흰색 로고 + difference: 흰 배경 위에선 검정, 글자·사진과 겹치면 색 반전 */
   mix-blend-mode: difference;
   user-select: none;
+}
+
+/* contact 페이지에서는 워터마크 숨김 */
+body:has(#contact.is-active) .site-watermark {
+  display: none;
 }
 
 .site-watermark img {
@@ -891,8 +899,7 @@ h2 {
     width: min(calc(100% - var(--resume-indent)), 235px);
   }
 
-  .page-copy,
-  .contact-page-links {
+  .page-copy {
     right: 16px;
     bottom: 28px;
     max-width: min(72vw, 320px);
