@@ -542,7 +542,7 @@ window.addEventListener("resize", resizeGridCanvas);
 showPage(window.location.hash.slice(1) || "home", false);
 resizeGridCanvas();
 
-// 도용방지 워터마크: 작업물이 보이면 작업물 중앙(검정), 아니면 화면 중앙(겹치는 글자 반전)
+// 도용방지 워터마크: 작업물이 보이면 작업물 중앙, 아니면 화면 중앙 (겹치는 글자·사진은 색 반전)
 const watermark = document.querySelector(".site-watermark");
 const headerHeight = 36;
 let watermarkFrame = null;
@@ -583,7 +583,7 @@ function updateWatermark() {
       onArtwork = true;
       x = rect.left + rect.width / 2;
       y = top + (bottom - top) / 2;
-      width = `${Math.min(rect.width * 0.7, Math.max(150, Math.min(window.innerWidth * 0.22, 360)))}px`;
+      width = `${Math.min(rect.width * 0.35, Math.max(75, Math.min(window.innerWidth * 0.11, 180)))}px`;
     }
   }
 

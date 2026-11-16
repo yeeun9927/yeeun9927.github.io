@@ -15,3 +15,11 @@ The Venetian Stucco series uses:
 - `260719_베네치안스타코_2.png`: detail carousel image 2
 
 Keep future filenames in the `YYMMDD_project-name_number.png` format.
+
+Lightweight copies (JPEG, generated from the originals):
+
+- `thumb/` (long side 800px): project grid on the left of the plaster page
+- `preview/` (long side 1800px): large preview on the right of the plaster page
+- Originals (`*.png`) are used only in the project detail page.
+
+When adding a new project, also add its `thumb/` and `preview/` JPEGs.

@@ -6,6 +6,8 @@
   --clay: #b36d57;
   --sage: #7f9b8b;
   --charcoal: #202020;
+  /* 워터마크 기본 너비 (home 제목 위치 계산에도 사용) */
+  --wm-size: clamp(75px, 11vw, 180px);
 }
 
 * {
@@ -80,7 +82,8 @@ body {
 .home-center {
   position: absolute;
   left: 50%;
-  top: 50%;
+  /* 워터마크 글자 윗선(로고 높이의 25.5%)에서 18px 위에 제목 배치 */
+  top: calc(50% - 5px - 0.0815 * var(--wm-size));
   text-align: center;
   transform: translate(-50%, -50%);
 }
@@ -167,6 +170,11 @@ body {
   white-space: nowrap;
 }
 
+.about-portrait-name {
+  font-size: 10px;
+  font-weight: 700;
+}
+
 .about-portrait-frame:hover .about-portrait {
   transform: rotate(3deg) scale(1.015);
 }
@@ -174,8 +182,10 @@ body {
 .about-resume {
   position: relative;
   z-index: 71;
-  --resume-indent: calc((100% - 360px) / 2);
-  max-width: 548px;
+  /* 목록 묶음 전체를 가운데 정렬: 가장 긴 줄 너비에 맞춰 줄이고 중앙 배치 */
+  --resume-indent: 0px;
+  width: fit-content;
+  max-width: min(100%, 548px);
   margin: 0 auto;
   padding: 28px 12px 64px;
   /* 이름 문구와 EDUCATION 사이 간격을 기존의 3배로 */
@@ -238,7 +248,8 @@ body {
 }
 
 .resume-software-list {
-  width: min(100%, 360px);
+  /* 이름과 네모 칸 사이 간격 50% 축소 */
+  width: min(100%, 235px);
   margin: 0;
   margin-left: var(--resume-indent);
 }
@@ -270,23 +281,28 @@ body {
   width: 8px;
   height: 8px;
   flex: 0 0 8px;
-  border: 1px solid #91a8b7;
-  border-radius: 50%;
+  border: 1px solid #4f6b8c;
+  border-radius: 0;
 }
 
 .resume-rating .is-filled {
-  background: #91a8b7;
+  background: #4f6b8c;
 }
 
 .resume-group.resume-certificates {
+  /* 화면 전체 너비 띠가 목록 묶음의 가운데 정렬 너비 계산에 영향 주지 않도록 */
+  contain: inline-size;
   margin-top: 264px;
 }
 
 .resume-certificate-marquee {
   container-type: inline-size;
-  width: calc(100% - var(--resume-indent));
-  margin-left: var(--resume-indent);
+  /* 좌우 화면 끝까지 넓게 */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   overflow: hidden;
+  /* 자격증 높이만큼의 가로 흰색 띠 */
+  background: #fff;
 }
 
 .resume-certificate-track {
@@ -316,7 +332,7 @@ body {
 
 .resume-certificate {
   flex: 0 0 auto;
-  width: calc((100cqi - 12px) / 2);
+  width: calc((100cqi - 36px) / 4);
   margin: 0 12px 0 0;
   aspect-ratio: 3 / 4;
 }
@@ -327,6 +343,7 @@ body {
   height: 100%;
   object-fit: contain;
   object-position: center top;
+  filter: grayscale(1);
 }
 
 .page-heading p {
@@ -395,11 +412,11 @@ body {
   left: var(--wm-x, 50vw);
   top: var(--wm-y, 50vh);
   z-index: 90;
-  width: var(--wm-width, clamp(150px, 22vw, 360px));
+  width: var(--wm-width, var(--wm-size));
   aspect-ratio: 2172 / 724;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  /* 흰색 로고 + difference: 흰 배경 위에선 검정, 검정 글자 위에선 흰색(반전) */
+  /* 흰색 로고 + difference: 흰 배경 위에선 검정, 글자·사진과 겹치면 색 반전 */
   mix-blend-mode: difference;
   user-select: none;
 }
@@ -409,15 +426,6 @@ body {
   width: 100%;
   height: 100%;
   filter: invert(1);
-}
-
-/* 작업물 위에서는 반전 없이 항상 검정 */
-.site-watermark.is-on-artwork {
-  mix-blend-mode: normal;
-}
-
-.site-watermark.is-on-artwork img {
-  filter: none;
 }
 
 a {
@@ -821,8 +829,12 @@ h2 {
     padding-right: 4px;
   }
 
+  .home-center {
+    top: calc(50% - 1px - 0.0815 * var(--wm-size));
+  }
+
   .home-title {
-    font-size: 6px;
+    font-size: 9px;
   }
 
   .text-page {
@@ -844,7 +856,7 @@ h2 {
   }
 
   .about-resume {
-    --resume-indent: 80px;
+    --resume-indent: 0px;
     padding: 24px 18px 48px;
     padding-top: calc(100svh - 32px - min(49.6vw, 256px) * 1.25 + 20px);
   }
@@ -855,6 +867,10 @@ h2 {
 
   .resume-group.resume-certificates {
     margin-top: 228px;
+  }
+
+  .resume-certificate {
+    width: calc((100cqi - 12px) / 2);
   }
 
   .resume-list > div {
@@ -872,7 +888,7 @@ h2 {
   }
 
   .resume-software-list {
-    width: calc(100% - var(--resume-indent));
+    width: min(calc(100% - var(--resume-indent)), 235px);
   }
 
   .page-copy,
