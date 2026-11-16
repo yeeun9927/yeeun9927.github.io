@@ -103,6 +103,36 @@ body {
   padding: max(84px, 12vh) clamp(18px, 3vw, 42px) 30px;
 }
 
+.about-portrait-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 80;
+  width: clamp(176px, 22.4vw, 344px);
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.about-portrait-frame.is-missing {
+  visibility: hidden;
+}
+
+.about-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% center;
+  transform-origin: 50% 55%;
+  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.about-portrait-frame:hover .about-portrait {
+  transform: rotate(3deg) scale(1.015);
+}
+
 .page-heading p {
   display: block;
   margin-bottom: 8px;
@@ -572,6 +602,10 @@ h2 {
     padding: 70px 16px 24px;
   }
 
+  .about-portrait-frame {
+    width: min(49.6vw, 256px);
+  }
+
   .page-copy,
   .contact-page-links {
     right: 16px;
@@ -728,6 +762,10 @@ h2 {
   object-fit: cover;
 }
 
+.project-thumb.is-missing {
+  background: #ededed;
+}
+
 .project-card:hover .project-thumb,
 .project-card:focus-visible .project-thumb,
 .project-card.is-selected .project-thumb {
@@ -746,6 +784,85 @@ h2 {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.plaster-page .project-library {
+  height: calc(100vh - 36px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.plaster-page .project-library::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.plaster-page .project-grid {
+  grid-template-rows: none;
+  grid-auto-rows: 32vh;
+  align-content: start;
+}
+
+.plaster-page .project-thumb {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  max-width: 90%;
+  max-height: none;
+  aspect-ratio: auto;
+  background: transparent;
+}
+
+.plaster-page .project-thumb img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 25vh;
+  object-fit: contain;
+}
+
+.plaster-page .project-thumb.placeholder {
+  width: 64%;
+  height: 21vh;
+  background: #ededed;
+}
+
+.plaster-page .project-preview {
+  position: relative;
+  z-index: 80;
+  height: calc(100vh - 36px);
+  min-height: 0;
+  overflow: hidden;
+  contain: layout paint;
+  background: #fff;
+}
+
+.project-thumb {
+  position: relative;
+  z-index: 80;
+}
+
+.project-preview,
+.detail-gallery {
+  position: relative;
+  z-index: 80;
+}
+
+.plaster-page .preview-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  contain: layout paint;
+  background: #fff;
+}
+
+.plaster-page .preview-image {
+  object-fit: cover;
+  object-position: center;
 }
 
 .ratio-square {
@@ -845,12 +962,14 @@ h2 {
 
 .detail-back {
   align-self: flex-start;
-  padding: 0 0 2px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
   border: 0;
-  border-bottom: 1px solid currentColor;
   background: transparent;
   font: inherit;
-  font-size: 7px;
+  font-size: 18px;
+  line-height: 1;
   cursor: pointer;
 }
 
@@ -902,10 +1021,117 @@ h2 {
   margin: 0 0 18px;
 }
 
+.detail-gallery figure.is-missing {
+  min-height: 58vh;
+  background: #e4e4e4;
+}
+
 .detail-gallery img {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.plaster-carousel {
+  position: relative;
+  height: calc(100vh - 36px);
+  padding: 0;
+  overflow: hidden;
+  background: #eeeeee;
+  cursor: zoom-in;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.carousel-track.is-resetting {
+  transition: none;
+}
+
+.detail-gallery .carousel-slide {
+  display: grid;
+  place-items: start center;
+  align-items: start;
+  justify-items: center;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.detail-gallery .carousel-slide img {
+  width: auto;
+  height: auto;
+  max-width: 78%;
+  max-height: 78%;
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 50%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+}
+
+.carousel-prev {
+  left: 0;
+  cursor: w-resize;
+}
+
+.carousel-next {
+  right: 0;
+  cursor: e-resize;
+}
+
+.plaster-carousel.is-single-slide .carousel-nav,
+.plaster-carousel.is-single-slide .carousel-status {
+  display: none;
+}
+
+.zoom-lens {
+  position: absolute;
+  z-index: 5;
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background-color: #eee;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+
+.zoom-lens.is-visible {
+  opacity: 1;
+}
+
+.carousel-status {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 2;
+  margin: 0;
+  padding: 3px 5px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 7px;
+  font-weight: 400;
 }
 
 @media (max-width: 820px) {
@@ -919,6 +1145,28 @@ h2 {
     padding: 12px;
     border-right: 0;
     border-bottom: 1px solid rgba(21, 21, 21, 0.18);
+  }
+
+  .plaster-page .project-library {
+    height: calc(100svh - 32px);
+    overscroll-behavior: auto;
+  }
+
+  .plaster-page .project-grid {
+    grid-auto-rows: 31svh;
+  }
+
+  .plaster-page .project-thumb img {
+    max-height: 23svh;
+  }
+
+  .plaster-page .project-thumb.placeholder {
+    height: 20svh;
+  }
+
+  .plaster-page .project-preview {
+    height: 76svh;
+    min-height: 76svh;
   }
 
   .library-header {
@@ -963,5 +1211,23 @@ h2 {
 
   .detail-gallery figure {
     margin-bottom: 10px;
+  }
+
+  .detail-gallery figure.is-missing {
+    min-height: 52svh;
+  }
+
+  .plaster-carousel {
+    height: 72svh;
+    padding: 0;
+  }
+
+  .detail-gallery .carousel-slide {
+    padding: 0;
+  }
+
+  .zoom-lens {
+    width: 128px;
+    height: 128px;
   }
 }

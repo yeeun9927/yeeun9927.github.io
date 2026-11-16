@@ -27,30 +27,30 @@
         </div>
       </section>
 
-      <section class="site-page text-page" id="about" data-page="about">
-        <div class="page-heading">
-          <p>01 / PROFILE</p>
-          <h2>ABOUT</h2>
-        </div>
+      <section class="site-page text-page about-page" id="about" data-page="about">
+        <figure class="about-portrait-frame">
+          <img
+            class="about-portrait"
+            src="image/about/프로필_구예은.jpg"
+            alt="Portrait of the designer"
+            data-optional-image
+          />
+        </figure>
         <p class="page-copy">
           A multidisciplinary portfolio exploring space, material, image, and
           the quiet structures behind everyday experience.
         </p>
       </section>
 
-      <section class="site-page interior-page" id="interior" data-page="interior">
-        <div class="interior-index is-active" data-interior-view="index">
+      <section class="site-page interior-page" id="interior" data-page="interior" data-portfolio-page>
+        <div class="interior-index is-active" data-index-view>
           <section class="project-library" aria-label="Interior project index">
-            <header class="library-header">
-              <h2>INTERIOR</h2>
-              <p>PROJECT INDEX / 01-09</p>
-            </header>
-
             <div class="project-grid">
               <button
                 class="project-card project-card-real"
                 type="button"
                 data-project-card="project-01"
+                data-opens-detail
                 data-preview-image="image/project1-01.png"
                 data-preview-title="SEONGSU RESIDENCE"
                 data-preview-meta="RESIDENCE / SEOUL / 2026"
@@ -108,9 +108,9 @@
           </aside>
         </div>
 
-        <article class="interior-detail" data-interior-view="detail" hidden>
+        <article class="interior-detail" data-detail-view hidden>
           <aside class="detail-sidebar">
-            <button class="detail-back" type="button" data-detail-back>BACK TO INDEX</button>
+            <button class="detail-back" type="button" data-detail-back aria-label="Back to project index" title="Back to project index">&larr;</button>
             <div class="detail-copy">
               <p class="detail-number">PROJECT 01 / 2026</p>
               <h2>SEONGSU RESIDENCE</h2>
@@ -127,6 +127,7 @@
           </aside>
 
           <div class="detail-gallery">
+            <figure><img src="image/project1-01.png" alt="Seongsu residence main view" /></figure>
             <figure><img src="image/project1-02.png" alt="Seongsu residence interior view 2" /></figure>
             <figure><img src="image/project1-03.png" alt="Seongsu residence interior view 3" /></figure>
             <figure><img src="image/project1-04.png" alt="Seongsu residence interior view 4" /></figure>
@@ -137,15 +138,105 @@
         </article>
       </section>
 
-      <section class="site-page text-page" id="plaster" data-page="plaster">
-        <div class="page-heading">
-          <p>03 / MATERIAL</p>
-          <h2>PLASTER</h2>
+      <section class="site-page interior-page plaster-page" id="plaster" data-page="plaster" data-portfolio-page>
+        <div class="interior-index is-active" data-index-view>
+          <section class="project-library" aria-label="Plaster project index">
+            <div class="project-grid">
+              <button
+                class="project-card project-card-real"
+                type="button"
+                data-project-card="plaster-01"
+                data-opens-detail
+                data-preview-image="image/plaster/261103_모티브스톤_2.png"
+                data-preview-title="MOTIVE STONE SERIES"
+                data-preview-meta="261103 / PLASTER / 2026"
+                data-detail-number="PROJECT 01 / 2026"
+                data-detail-title="MOTIVE STONE SERIES"
+                data-detail-description="A material study exploring aggregate, hand-applied texture, reflected light, and the changing depth of a plaster surface."
+                data-detail-images="image/plaster/261103_모티브스톤_1.png|image/plaster/261103_모티브스톤B_1.png"
+              >
+                <span class="project-thumb ratio-landscape">
+                  <img src="image/plaster/261103_모티브스톤_2.png" alt="Motive Stone plaster series" width="2856" height="3492" decoding="async" />
+                </span>
+                <span class="project-card-title">01 MOTIVE STONE</span>
+              </button>
+
+              <button class="project-card project-card-real" type="button" data-project-card="plaster-02" data-opens-detail data-preview-image="image/plaster/260719_베네치안스타코_2.png" data-preview-title="VENETIAN STUCCO" data-preview-meta="260719 / PLASTER / 2026" data-detail-number="PROJECT 02 / 2026" data-detail-title="VENETIAN STUCCO" data-detail-description="A polished plaster study focused on depth, movement, subtle reflection, and layered Venetian stucco finishes." data-detail-images="image/plaster/260719_베네치안스타코_2.png|image/plaster/260719_베네치안스타코_1.png">
+                <span class="project-thumb ratio-portrait"><img src="image/plaster/260719_베네치안스타코_2.png" alt="Venetian stucco plaster project" width="3486" height="5167" loading="lazy" decoding="async" /></span>
+                <span class="project-card-title">02 VENETIAN STUCCO</span>
+              </button>
+              <button class="project-card project-card-real" type="button" data-project-card="plaster-03" data-opens-detail data-preview-image="image/plaster/260718_스터코빈티지_1.png" data-preview-title="STUCCO VINTAGE" data-preview-meta="260718 / PLASTER / 2026" data-detail-number="PROJECT 03 / 2026" data-detail-title="STUCCO VINTAGE" data-detail-description="A vintage stucco surface study shaped through layered texture, tonal variation, and a softly weathered finish." data-detail-images="image/plaster/260718_스터코빈티지_1.png">
+                <span class="project-thumb ratio-wide"><img src="image/plaster/260718_스터코빈티지_1.png" alt="Stucco vintage plaster project" width="3396" height="4900" loading="lazy" decoding="async" /></span>
+                <span class="project-card-title">03 STUCCO VINTAGE</span>
+              </button>
+              <button class="project-card project-card-real" type="button" data-project-card="plaster-04" data-opens-detail data-preview-image="image/plaster/260705_루이스네이처_2.png" data-preview-title="LOUIS NATURE" data-preview-meta="260705 / PLASTER / 2026" data-detail-number="PROJECT 04 / 2026" data-detail-title="LOUIS NATURE" data-detail-description="A natural plaster composition balancing mineral color, broad movement, and a calm hand-worked surface." data-detail-images="image/plaster/260705_루이스네이처_2.png">
+                <span class="project-thumb ratio-square"><img src="image/plaster/260705_루이스네이처_2.png" alt="Louis Nature plaster project" width="3510" height="2220" loading="lazy" decoding="async" /></span>
+                <span class="project-card-title">04 LOUIS NATURE</span>
+              </button>
+              <button class="project-card project-card-real" type="button" data-project-card="plaster-05" data-opens-detail data-preview-image="image/plaster/260704_베네치안 플라스터_1.png" data-preview-title="VENETIAN PLASTER" data-preview-meta="260704 / PLASTER / 2026" data-detail-number="PROJECT 05 / 2026" data-detail-title="VENETIAN PLASTER" data-detail-description="A Venetian plaster finish exploring polished depth, subtle reflection, and continuous movement across the wall." data-detail-images="image/plaster/260704_베네치안 플라스터_1.png">
+                <span class="project-thumb ratio-wide"><img src="image/plaster/260704_베네치안 플라스터_1.png" alt="Venetian plaster project" width="3900" height="2466" loading="lazy" decoding="async" /></span>
+                <span class="project-card-title">05 VENETIAN PLASTER</span>
+              </button>
+              <button class="project-card project-card-real" type="button" data-project-card="plaster-06" data-opens-detail data-preview-image="image/plaster/260627_석회접착미장재_1.png" data-preview-title="LIME PLASTER" data-preview-meta="260627 / PLASTER / 2026" data-detail-number="PROJECT 06 / 2026" data-detail-title="LIME PLASTER" data-detail-description="A lime-based plaster test focused on adhesion, mineral texture, and the soft variation created by manual application." data-detail-images="image/plaster/260627_석회접착미장재_1.png">
+                <span class="project-thumb ratio-square"><img src="image/plaster/260627_석회접착미장재_1.png" alt="Lime plaster project" width="2552" height="4072" loading="lazy" decoding="async" /></span>
+                <span class="project-card-title">06 LIME PLASTER</span>
+              </button>
+              <button class="project-card project-card-real" type="button" data-project-card="plaster-07" data-opens-detail data-preview-image="image/plaster/260615_바르다미장_2.png" data-preview-title="BARDA PLASTER" data-preview-meta="260615 / PLASTER / 2026" data-detail-number="PROJECT 07 / 2026" data-detail-title="BARDA PLASTER" data-detail-description="A hand-applied plaster study using restrained color and irregular movement to build a tactile architectural surface." data-detail-images="image/plaster/260615_바르다미장_2.png">
+                <span class="project-thumb ratio-portrait"><img src="image/plaster/260615_바르다미장_2.png" alt="Barda plaster project" width="2976" height="4400" loading="lazy" decoding="async" /></span>
+                <span class="project-card-title">07 BARDA PLASTER</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="plaster-08" data-preview-title="PLASTER PROJECT 08" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-landscape"></span>
+                <span class="project-card-title">08 ARCHIVE</span>
+              </button>
+              <button class="project-card" type="button" data-project-card="plaster-09" data-preview-title="PLASTER PROJECT 09" data-preview-meta="COMING SOON">
+                <span class="project-thumb placeholder ratio-square"></span>
+                <span class="project-card-title">09 ARCHIVE</span>
+              </button>
+            </div>
+          </section>
+
+          <aside class="project-preview" aria-live="polite">
+            <div class="preview-frame">
+              <img class="preview-image" src="image/plaster/261103_모티브스톤_2.png" alt="Selected plaster project preview" width="2856" height="3492" decoding="async" />
+              <div class="preview-placeholder" hidden></div>
+            </div>
+            <div class="preview-caption">
+              <p class="preview-title">MOTIVE STONE SERIES</p>
+              <p class="preview-meta">261103 / PLASTER / 2026</p>
+            </div>
+          </aside>
         </div>
-        <p class="page-copy">
-          Surface studies shaped through hand, light, aggregate, and repeated
-          layers. Selected work will be added here.
-        </p>
+
+        <article class="interior-detail" data-detail-view hidden>
+          <aside class="detail-sidebar">
+            <button class="detail-back" type="button" data-detail-back aria-label="Back to project index" title="Back to project index">&larr;</button>
+            <div class="detail-copy">
+              <p class="detail-number" data-detail-number>PROJECT 01 / 2026</p>
+              <h2 data-detail-title>MOTIVE STONE SERIES</h2>
+              <p data-detail-description>
+                A material study exploring aggregate, hand-applied texture,
+                reflected light, and the changing depth of a plaster surface.
+              </p>
+              <dl class="detail-meta">
+                <div><dt>TYPE</dt><dd>MATERIAL STUDY</dd></div>
+                <div><dt>MATERIAL</dt><dd>PLASTER, PIGMENT</dd></div>
+                <div><dt>SCOPE</dt><dd>SURFACE, SAMPLE, FINISH</dd></div>
+              </dl>
+            </div>
+          </aside>
+
+          <div class="detail-gallery plaster-carousel" data-auto-carousel>
+            <div class="carousel-track">
+              <figure class="carousel-slide"><img src="image/plaster/261103_모티브스톤_1.png" alt="Motive Stone series detail 1" width="2856" height="3492" loading="lazy" decoding="async" /></figure>
+              <figure class="carousel-slide"><img src="image/plaster/261103_모티브스톤B_1.png" alt="Motive Stone series detail 2" width="2856" height="3492" loading="lazy" decoding="async" /></figure>
+            </div>
+            <button class="carousel-nav carousel-prev" type="button" data-carousel-prev aria-label="Previous image"></button>
+            <button class="carousel-nav carousel-next" type="button" data-carousel-next aria-label="Next image"></button>
+            <div class="zoom-lens" data-zoom-lens aria-hidden="true"></div>
+            <p class="carousel-status"><span data-carousel-index>01</span> / <span data-carousel-total>02</span></p>
+          </div>
+        </article>
       </section>
 
       <section class="site-page text-page" id="photography" data-page="photography">
