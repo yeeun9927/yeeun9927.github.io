@@ -408,6 +408,10 @@ function showPage(pageName, updateHash = true) {
 
   window.scrollTo(0, 0);
 
+  if (requestedPage === "about") {
+    document.querySelector(".about-page")?.scrollTo(0, 0);
+  }
+
   if (updateHash && window.location.hash !== `#${requestedPage}`) {
     window.history.pushState(null, "", `#${requestedPage}`);
   }
@@ -477,7 +481,7 @@ function drawGridTrail() {
 
   animationFrame = null;
   gridContext.clearRect(0, 0, width, height);
-  gridContext.strokeStyle = "rgba(21, 21, 21, 0.07)";
+  gridContext.strokeStyle = "rgba(21, 21, 21, 0.035)";
   gridContext.lineWidth = 1;
 
   for (let x = 0; x <= width; x += cellSize) {
@@ -498,14 +502,14 @@ function drawGridTrail() {
     const age = now - cell.time;
     const fade = Math.max(0, 1 - age / trailDuration);
     const sequence = (index + 1) / trail.length;
-    const alpha = Math.min(0.58, fade * (0.1 + sequence * 0.46));
+    const alpha = Math.min(0.29, fade * (0.05 + sequence * 0.23));
 
     gridContext.fillStyle = `rgba(0, 0, 0, ${alpha})`;
     gridContext.fillRect(cell.x * cellSize, cell.y * cellSize, cellSize, cellSize);
   });
 
   if (activeCell) {
-    gridContext.fillStyle = "rgba(10, 10, 10, 0.72)";
+    gridContext.fillStyle = "rgba(10, 10, 10, 0.36)";
     gridContext.fillRect(
       activeCell.x * cellSize,
       activeCell.y * cellSize,
@@ -537,3 +541,76 @@ window.addEventListener("pointerleave", () => {
 window.addEventListener("resize", resizeGridCanvas);
 showPage(window.location.hash.slice(1) || "home", false);
 resizeGridCanvas();
+
+// 도용방지 워터마크: 작업물이 보이면 작업물 중앙(검정), 아니면 화면 중앙(겹치는 글자 반전)
+const watermark = document.querySelector(".site-watermark");
+const headerHeight = 36;
+let watermarkFrame = null;
+
+function getWatermarkTarget() {
+  const page = document.querySelector(".site-page.is-active");
+
+  if (!page || !page.hasAttribute("data-portfolio-page")) {
+    return null;
+  }
+
+  const detail = page.querySelector("[data-detail-view]:not([hidden])");
+
+  if (detail) {
+    return detail.querySelector(".detail-gallery");
+  }
+
+  return page.querySelector("[data-index-view].is-active .preview-frame");
+}
+
+function updateWatermark() {
+  watermarkFrame = null;
+
+  const target = getWatermarkTarget();
+  const viewTop = headerHeight;
+  const viewBottom = window.innerHeight;
+  let x = window.innerWidth / 2;
+  let y = viewTop + (viewBottom - viewTop) / 2;
+  let width = "";
+  let onArtwork = false;
+
+  if (target) {
+    const rect = target.getBoundingClientRect();
+    const top = Math.max(rect.top, viewTop);
+    const bottom = Math.min(rect.bottom, viewBottom);
+
+    if (rect.width > 0 && bottom > top) {
+      onArtwork = true;
+      x = rect.left + rect.width / 2;
+      y = top + (bottom - top) / 2;
+      width = `${Math.min(rect.width * 0.7, Math.max(150, Math.min(window.innerWidth * 0.22, 360)))}px`;
+    }
+  }
+
+  watermark.classList.toggle("is-on-artwork", onArtwork);
+  watermark.style.setProperty("--wm-x", `${x}px`);
+  watermark.style.setProperty("--wm-y", `${y}px`);
+
+  if (width) {
+    watermark.style.setProperty("--wm-width", width);
+  } else {
+    watermark.style.removeProperty("--wm-width");
+  }
+}
+
+function scheduleWatermarkUpdate() {
+  if (!watermarkFrame) {
+    watermarkFrame = requestAnimationFrame(updateWatermark);
+  }
+}
+
+if (watermark) {
+  window.addEventListener("resize", scheduleWatermarkUpdate);
+  document.addEventListener("scroll", scheduleWatermarkUpdate, { capture: true, passive: true });
+  new MutationObserver(scheduleWatermarkUpdate).observe(document.querySelector(".site-pages"), {
+    attributes: true,
+    attributeFilter: ["class", "hidden"],
+    subtree: true,
+  });
+  updateWatermark();
+}
