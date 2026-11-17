@@ -99,7 +99,8 @@ body {
 .home-pile {
   position: relative;
   z-index: 71;
-  margin-top: calc(100vh - 36px);
+  /* 첫 화면의 2배 높이만큼 스크롤해야 더미가 나옴 */
+  margin-top: calc((100vh - 36px) * 2);
   background: #fff;
 }
 
@@ -398,7 +399,8 @@ body {
 
 .resume-certificate {
   flex: 0 0 auto;
-  width: calc((100cqi - 36px) / 4);
+  /* 기존 크기의 80% (20% 축소) */
+  width: calc((100cqi - 36px) / 4 * 0.8);
   margin: 0 12px 0 0;
   aspect-ratio: 3 / 4;
 }
@@ -915,7 +917,7 @@ h2 {
   }
 
   .home-pile {
-    margin-top: calc(100vh - 32px);
+    margin-top: calc((100vh - 32px) * 2);
   }
 
   .home-pile-grid {
@@ -959,7 +961,7 @@ h2 {
   }
 
   .resume-certificate {
-    width: calc((100cqi - 12px) / 2);
+    width: calc((100cqi - 12px) / 2 * 0.8);
   }
 
   .resume-list > div {

@@ -705,26 +705,12 @@ function buildHomePile() {
 
   portfolioPages.forEach((page) => {
     page.querySelectorAll("[data-project-card][data-opens-detail]").forEach((card) => {
-      const paths = new Set();
-      const cardImage = card.querySelector("img");
+      // 프로젝트마다 대표(메인) 사진 한 장만: 목록 카드에 쓰인 사진
+      const cover = card.querySelector("img")?.getAttribute("src");
 
-      if (cardImage) {
-        paths.add(toThumbPath(cardImage.getAttribute("src")));
+      if (cover) {
+        tiles.push({ path: toThumbPath(cover), card, pageName: page.dataset.page });
       }
-
-      const detailImages = card.dataset.detailImages
-        ? card.dataset.detailImages.split("|")
-        : Array.from(page.querySelectorAll("[data-detail-view] .detail-gallery img"))
-          .map((image) => image.getAttribute("src"));
-
-      detailImages
-        .map((path) => path.trim())
-        .filter(Boolean)
-        .forEach((path) => paths.add(toThumbPath(path)));
-
-      paths.forEach((path) => {
-        tiles.push({ path, card, pageName: page.dataset.page });
-      });
     });
   });
 
@@ -920,3 +906,51 @@ if (p3dPage) {
   // 다른 페이지로 가거나 메뉴에서 3D PROJECT를 다시 누르면 목록으로
   portfolioControllers.set(p3dPage.dataset.page, { closeDetail: p3dClose });
 }
+
+// ABOUT 자격증 흐름: 사진이 작아져도 끊김 없도록, 화면 폭을 채울 만큼 복제본을 채움
+// (트랙 = [묶음][같은 묶음] 구조, 애니메이션은 -50% 이동)
+const certificateTrack = document.querySelector(".resume-certificate-track");
+
+function fillCertificateTrack() {
+  if (!certificateTrack) {
+    return;
+  }
+
+  const marquee = certificateTrack.parentElement;
+  const originals = Array.from(certificateTrack.children)
+    .filter((item) => !item.hasAttribute("aria-hidden"));
+
+  certificateTrack.querySelectorAll("[aria-hidden='true']").forEach((item) => item.remove());
+
+  const setWidth = certificateTrack.scrollWidth;
+
+  if (!setWidth || !marquee.clientWidth) {
+    return;
+  }
+
+  // 한 묶음이 화면 폭 이상이 되도록 원본 세트를 몇 번 반복할지
+  const repeats = Math.max(1, Math.ceil(marquee.clientWidth / setWidth));
+  const total = repeats * 2 - 1;
+
+  for (let round = 0; round < total; round += 1) {
+    originals.forEach((item) => {
+      const clone = item.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      clone.querySelector("img")?.setAttribute("alt", "");
+      certificateTrack.append(clone);
+    });
+  }
+}
+
+let certificateResizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(certificateResizeTimer);
+  certificateResizeTimer = setTimeout(fillCertificateTrack, 200);
+});
+
+// ABOUT 페이지가 처음 열릴 때(숨김 상태에선 폭이 0이라) 다시 계산
+new MutationObserver(fillCertificateTrack).observe(document.querySelector("#about"), {
+  attributes: true,
+  attributeFilter: ["class"],
+});
+fillCertificateTrack();
