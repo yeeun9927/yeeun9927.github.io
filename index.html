@@ -14,9 +14,9 @@
       <nav class="site-nav" aria-label="Primary navigation">
         <a class="nav-link is-active" href="#home" data-page-link="home">HOME</a>
         <a class="nav-link" href="#about" data-page-link="about">ABOUT</a>
+        <a class="nav-link" href="#3d-project" data-page-link="3d-project">3D PROJECT</a>
         <a class="nav-link" href="#interior" data-page-link="interior">INTERIOR</a>
         <a class="nav-link" href="#plaster" data-page-link="plaster">PLASTER</a>
-        <a class="nav-link" href="#photography" data-page-link="photography">PHOTOGRAPHY</a>
         <a class="nav-link" href="#contact" data-page-link="contact">CONTACT</a>
       </nav>
     </header>
@@ -26,6 +26,10 @@
         <div class="home-center">
           <h1 class="home-title">1999-2026 PORTFOLIO</h1>
         </div>
+        <!-- 스크롤하면 나오는 전체 프로젝트 더미 (script.js가 각 프로젝트 이미지로 랜덤 배치) -->
+        <section class="home-pile" aria-label="All projects">
+          <div class="home-pile-grid" data-home-pile></div>
+        </section>
       </section>
 
       <section class="site-page text-page about-page" id="about" data-page="about" aria-label="About and resume" tabindex="0">
@@ -131,10 +135,10 @@
                 <img src="image/about/자격증/231213_실내건축기사자격증.jpg" alt="2023.12.13 실내건축기사 자격증" loading="lazy" />
               </figure>
               <figure class="resume-certificate">
-                <img src="image/about/자격증/260701_건축도장기능사.jpg" alt="2026.07.01 건축도장기능사" loading="lazy" />
+                <img src="image/about/자격증/260719_국제기술교육원 수료증.png" alt="2026.07.19 국제기술교육원 수료증" loading="lazy" />
               </figure>
               <figure class="resume-certificate">
-                <img src="image/about/자격증/260719_국제기술교육원 수료증.png" alt="2026.07.19 국제기술교육원 수료증" loading="lazy" />
+                <img src="image/about/자격증/261029_건축도장기능사.jpg" alt="2026.10.29 건축도장기능사" loading="lazy" />
               </figure>
               <figure class="resume-certificate">
                 <img src="image/about/자격증/261103_듀플라스터 수료증.png" alt="2026.11.03 듀플라스터 수료증" loading="lazy" />
@@ -144,10 +148,10 @@
                 <img src="image/about/자격증/231213_실내건축기사자격증.jpg" alt="" loading="lazy" />
               </figure>
               <figure class="resume-certificate" aria-hidden="true">
-                <img src="image/about/자격증/260701_건축도장기능사.jpg" alt="" loading="lazy" />
+                <img src="image/about/자격증/260719_국제기술교육원 수료증.png" alt="" loading="lazy" />
               </figure>
               <figure class="resume-certificate" aria-hidden="true">
-                <img src="image/about/자격증/260719_국제기술교육원 수료증.png" alt="" loading="lazy" />
+                <img src="image/about/자격증/261029_건축도장기능사.jpg" alt="" loading="lazy" />
               </figure>
               <figure class="resume-certificate" aria-hidden="true">
                 <img src="image/about/자격증/261103_듀플라스터 수료증.png" alt="" loading="lazy" />
@@ -158,100 +162,49 @@
         </div>
       </section>
 
-      <section class="site-page interior-page" id="interior" data-page="interior" data-portfolio-page>
-        <div class="interior-index is-active" data-index-view>
-          <section class="project-library" aria-label="Interior project index">
-            <div class="project-grid">
-              <button
-                class="project-card project-card-real"
-                type="button"
-                data-project-card="project-01"
-                data-opens-detail
-                data-preview-image="image/project1-01.png"
-                data-preview-title="SEONGSU RESIDENCE"
-                data-preview-meta="RESIDENCE / SEOUL / 2026"
-              >
-                <span class="project-thumb ratio-landscape">
-                  <img src="image/project1-01.png" alt="Seongsu residence project" />
-                </span>
-                <span class="project-card-title">01 SEONGSU RESIDENCE</span>
-              </button>
-
-              <button class="project-card" type="button" data-project-card="archive-02" data-preview-title="ARCHIVE PROJECT 02" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-portrait"></span>
-                <span class="project-card-title">02 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-03" data-preview-title="ARCHIVE PROJECT 03" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-wide"></span>
-                <span class="project-card-title">03 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-04" data-preview-title="ARCHIVE PROJECT 04" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-square"></span>
-                <span class="project-card-title">04 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-05" data-preview-title="ARCHIVE PROJECT 05" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-wide"></span>
-                <span class="project-card-title">05 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-06" data-preview-title="ARCHIVE PROJECT 06" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-square"></span>
-                <span class="project-card-title">06 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-07" data-preview-title="ARCHIVE PROJECT 07" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-portrait"></span>
-                <span class="project-card-title">07 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-08" data-preview-title="ARCHIVE PROJECT 08" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-landscape"></span>
-                <span class="project-card-title">08 ARCHIVE</span>
-              </button>
-              <button class="project-card" type="button" data-project-card="archive-09" data-preview-title="ARCHIVE PROJECT 09" data-preview-meta="COMING SOON">
-                <span class="project-thumb placeholder ratio-square"></span>
-                <span class="project-card-title">09 ARCHIVE</span>
-              </button>
-            </div>
-          </section>
-
-          <aside class="project-preview" aria-live="polite">
-            <div class="preview-frame">
-              <img class="preview-image" src="image/project1-01.png" alt="Selected interior project preview" />
-              <div class="preview-placeholder" hidden></div>
-            </div>
-            <div class="preview-caption">
-              <p class="preview-title">SEONGSU RESIDENCE</p>
-              <p class="preview-meta">RESIDENCE / SEOUL / 2026</p>
-            </div>
-          </aside>
+      <section class="site-page p3d-page" id="3d-project" data-page="3d-project" data-p3d-page>
+        <!-- 목록: 회색 칸 3열 그리드. 이미지 순서는 data-images 순서 그대로(폴더 안 파일 순서) -->
+        <div class="p3d-index" data-p3d-index>
+          <div class="p3d-grid">
+            <button class="p3d-card" type="button" data-p3d-card data-title="CYCLE" data-meta="2ND YEAR" data-images="image/3D project/2nd year_Cycle/web/Cycle_Scene1.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene2.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene3.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene4.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene5.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene6.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene7.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene8.jpg|image/3D project/2nd year_Cycle/web/Cycle_Scene9.jpg|image/3D project/2nd year_Cycle/web/Cycle_패널.jpg">
+              <span class="p3d-thumb"><img src="image/3D project/2nd year_Cycle/thumb/Cycle_Scene4.jpg" alt="Cycle project" loading="lazy" decoding="async" /></span>
+              <span class="p3d-card-title">2ND YEAR — CYCLE</span>
+            </button>
+            <button class="p3d-card" type="button" data-p3d-card data-title="보행갈증" data-meta="3RD YEAR" data-images="image/3D project/3rd year_보행갈증/web/보행갈증_Process1.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Process2.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Process3.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Process4.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Scene1.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Scene2.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Scene3.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Scene4.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Scene5.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_Scene6.jpg|image/3D project/3rd year_보행갈증/web/보행갈증_패널.jpg">
+              <span class="p3d-thumb"><img src="image/3D project/3rd year_보행갈증/thumb/보행갈증_Scene1.jpg" alt="보행갈증 project" loading="lazy" decoding="async" /></span>
+              <span class="p3d-card-title">3RD YEAR — 보행갈증</span>
+            </button>
+          </div>
         </div>
 
-        <article class="interior-detail" data-detail-view hidden>
-          <aside class="detail-sidebar">
-            <button class="detail-back" type="button" data-detail-back aria-label="Back to project index" title="Back to project index">&larr;</button>
-            <div class="detail-copy">
-              <p class="detail-number">PROJECT 01 / 2026</p>
-              <h2>SEONGSU RESIDENCE</h2>
-              <p>
-                A residential interior study shaped around quiet circulation,
-                layered natural light, and a restrained material palette.
-              </p>
-              <dl class="detail-meta">
-                <div><dt>LOCATION</dt><dd>SEOUL, KOREA</dd></div>
-                <div><dt>TYPE</dt><dd>RESIDENCE</dd></div>
-                <div><dt>SCOPE</dt><dd>PLANNING, MATERIAL, STYLING</dd></div>
-              </dl>
-            </div>
+        <!-- 상세: 큰 이미지 + 좌우 작은 글자 + 하단 썸네일 줄. 6초마다 자동 넘김, 클릭으로도 넘김 -->
+        <article class="p3d-detail" data-p3d-detail hidden>
+          <aside class="p3d-side p3d-side-left">
+            <button class="p3d-text-button" type="button" data-p3d-back>INDEX</button>
+            <p class="p3d-title" data-p3d-title></p>
+            <p class="p3d-meta" data-p3d-meta></p>
           </aside>
-
-          <div class="detail-gallery">
-            <figure><img src="image/project1-01.png" alt="Seongsu residence main view" /></figure>
-            <figure><img src="image/project1-02.png" alt="Seongsu residence interior view 2" /></figure>
-            <figure><img src="image/project1-03.png" alt="Seongsu residence interior view 3" /></figure>
-            <figure><img src="image/project1-04.png" alt="Seongsu residence interior view 4" /></figure>
-            <figure><img src="image/project1-05.png" alt="Seongsu residence interior view 5" /></figure>
-            <figure><img src="image/project1-06.png" alt="Seongsu residence interior view 6" /></figure>
-            <figure><img src="image/project1-07.png" alt="Seongsu residence interior view 7" /></figure>
+          <div class="p3d-stage" data-p3d-stage>
+            <img class="p3d-main" data-p3d-main alt="" />
+            <button class="p3d-hit p3d-hit-prev" type="button" data-p3d-prev aria-label="Previous image"></button>
+            <button class="p3d-hit p3d-hit-next" type="button" data-p3d-next aria-label="Next image"></button>
           </div>
+          <aside class="p3d-side p3d-side-right">
+            <span data-p3d-count>01 / 01</span>
+            <button class="p3d-text-button" type="button" data-p3d-next-project>NEXT PROJECT &rarr;</button>
+          </aside>
+          <div class="p3d-strip" data-p3d-strip></div>
         </article>
+      </section>
+
+      <section class="site-page text-page" id="interior" data-page="interior">
+        <div class="page-heading">
+          <p>03 / SPACE</p>
+          <h2>INTERIOR</h2>
+        </div>
+        <p class="page-copy">
+          Selected interior projects will be added here.
+        </p>
       </section>
 
       <section class="site-page interior-page plaster-page" id="plaster" data-page="plaster" data-portfolio-page>
@@ -326,7 +279,10 @@
 
         <article class="interior-detail" data-detail-view hidden>
           <aside class="detail-sidebar">
-            <button class="detail-back" type="button" data-detail-back aria-label="Back to project index" title="Back to project index">&larr;</button>
+            <nav class="detail-nav" aria-label="Project navigation">
+              <button class="detail-back" type="button" data-detail-back aria-label="Back to project index">INDEX</button>
+              <button class="detail-next" type="button" data-detail-next aria-label="Next project">NEXT &rarr;</button>
+            </nav>
             <div class="detail-copy">
               <p class="detail-number" data-detail-number>PROJECT 01 / 2026</p>
               <h2 data-detail-title>MOTIVE STONE SERIES</h2>
@@ -353,17 +309,6 @@
             <p class="carousel-status"><span data-carousel-index>01</span> / <span data-carousel-total>02</span></p>
           </div>
         </article>
-      </section>
-
-      <section class="site-page text-page" id="photography" data-page="photography">
-        <div class="page-heading">
-          <p>04 / IMAGE</p>
-          <h2>PHOTOGRAPHY</h2>
-        </div>
-        <p class="page-copy">
-          Observations of architecture, objects, and temporary arrangements.
-          Selected photographs will be added here.
-        </p>
       </section>
 
       <section class="site-page text-page" id="contact" data-page="contact">

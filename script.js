@@ -361,21 +361,41 @@ portfolioPages.forEach((page) => {
     }
   }
 
+  const detailCards = projectCards.filter((card) => card.hasAttribute("data-opens-detail"));
+  const detailNext = page.querySelector("[data-detail-next]");
+  let currentDetailCard = null;
+
+  function openDetail(card) {
+    currentDetailCard = card;
+    updateProjectPreview(card);
+    updateDetailContent(card);
+    indexView.classList.remove("is-active");
+    detailView.hidden = false;
+    window.scrollTo(0, 0);
+    detailView.querySelector(".detail-gallery")?.scrollTo?.(0, 0);
+    startCarousel();
+  }
+
   projectCards.forEach((card) => {
     card.addEventListener("pointerenter", () => updateProjectPreview(card));
     card.addEventListener("focus", () => updateProjectPreview(card));
     card.addEventListener("click", () => {
-      updateProjectPreview(card);
-
       if (card.hasAttribute("data-opens-detail")) {
-        updateDetailContent(card);
-        indexView.classList.remove("is-active");
-        detailView.hidden = false;
-        window.scrollTo(0, 0);
-        startCarousel();
+        openDetail(card);
+      } else {
+        updateProjectPreview(card);
       }
     });
   });
+
+  // NEXT →: 상세페이지가 있는 다음 프로젝트로 (마지막이면 처음으로)
+  if (detailNext) {
+    detailNext.hidden = detailCards.length < 2;
+    detailNext.addEventListener("click", () => {
+      const index = detailCards.indexOf(currentDetailCard);
+      openDetail(detailCards[(index + 1) % detailCards.length]);
+    });
+  }
 
   detailBack.addEventListener("click", closeDetail);
   portfolioControllers.set(page.dataset.page, { closeDetail });
@@ -404,7 +424,7 @@ function showPage(pageName, updateHash = true) {
 
   document.title = requestedPage === "home"
     ? "9GU9G9G9G Portfolio"
-    : `${requestedPage.toUpperCase()} | 9GU9G9G9G`;
+    : `${requestedPage.replace("-", " ").toUpperCase()} | 9GU9G9G9G`;
 
   window.scrollTo(0, 0);
 
@@ -550,6 +570,11 @@ let watermarkFrame = null;
 function getWatermarkTarget() {
   const page = document.querySelector(".site-page.is-active");
 
+  if (page?.hasAttribute("data-p3d-page")) {
+    const p3dDetail = page.querySelector("[data-p3d-detail]:not([hidden])");
+    return p3dDetail ? p3dDetail.querySelector("[data-p3d-main]") : null;
+  }
+
   if (!page || !page.hasAttribute("data-portfolio-page")) {
     return null;
   }
@@ -583,7 +608,7 @@ function updateWatermark() {
       onArtwork = true;
       x = rect.left + rect.width / 2;
       y = top + (bottom - top) / 2;
-      width = `${Math.min(rect.width * 0.35, Math.max(75, Math.min(window.innerWidth * 0.11, 180)))}px`;
+      width = `${Math.min(rect.width * 0.28, Math.max(60, Math.min(window.innerWidth * 0.088, 144)))}px`;
     }
   }
 
@@ -596,6 +621,35 @@ function updateWatermark() {
   } else {
     watermark.style.removeProperty("--wm-width");
   }
+
+  // 사진과 겹치면 투명도 없이 완전 반전, 그 외에는 반투명
+  watermark.classList.toggle("is-over-photo", onArtwork || isWatermarkOverPhoto());
+}
+
+function isWatermarkOverPhoto() {
+  const page = document.querySelector(".site-page.is-active");
+
+  if (!page) {
+    return false;
+  }
+
+  const mark = watermark.getBoundingClientRect();
+
+  return Array.from(page.querySelectorAll("img")).some((image) => {
+    if (image.hidden || !image.complete || image.naturalWidth === 0) {
+      return false;
+    }
+
+    const rect = image.getBoundingClientRect();
+
+    return (
+      rect.width > 0 &&
+      rect.left < mark.right &&
+      rect.right > mark.left &&
+      rect.top < mark.bottom &&
+      rect.bottom > mark.top
+    );
+  });
 }
 
 function scheduleWatermarkUpdate() {
@@ -606,6 +660,7 @@ function scheduleWatermarkUpdate() {
 
 if (watermark) {
   window.addEventListener("resize", scheduleWatermarkUpdate);
+  document.addEventListener("load", scheduleWatermarkUpdate, true);
   document.addEventListener("scroll", scheduleWatermarkUpdate, { capture: true, passive: true });
   new MutationObserver(scheduleWatermarkUpdate).observe(document.querySelector(".site-pages"), {
     attributes: true,
@@ -613,4 +668,255 @@ if (watermark) {
     subtree: true,
   });
   updateWatermark();
+}
+
+// HOME 전체 프로젝트 더미: 상세페이지가 있는 모든 프로젝트의 이미지를 섞어서 촘촘히 배치
+const homePile = document.querySelector("[data-home-pile]");
+
+function toThumbPath(path) {
+  if (path.includes("/thumb/")) {
+    return path;
+  }
+
+  if (path.includes("/web/")) {
+    return path.replace("/web/", "/thumb/");
+  }
+
+  const slash = path.lastIndexOf("/");
+  const dir = path.slice(0, slash);
+  const name = path.slice(slash + 1).replace(/\.[^.]+$/, "");
+  return `${dir}/thumb/${name}.jpg`;
+}
+
+function shuffle(items) {
+  for (let index = items.length - 1; index > 0; index -= 1) {
+    const swap = Math.floor(Math.random() * (index + 1));
+    [items[index], items[swap]] = [items[swap], items[index]];
+  }
+  return items;
+}
+
+function buildHomePile() {
+  if (!homePile) {
+    return;
+  }
+
+  const tiles = [];
+
+  portfolioPages.forEach((page) => {
+    page.querySelectorAll("[data-project-card][data-opens-detail]").forEach((card) => {
+      const paths = new Set();
+      const cardImage = card.querySelector("img");
+
+      if (cardImage) {
+        paths.add(toThumbPath(cardImage.getAttribute("src")));
+      }
+
+      const detailImages = card.dataset.detailImages
+        ? card.dataset.detailImages.split("|")
+        : Array.from(page.querySelectorAll("[data-detail-view] .detail-gallery img"))
+          .map((image) => image.getAttribute("src"));
+
+      detailImages
+        .map((path) => path.trim())
+        .filter(Boolean)
+        .forEach((path) => paths.add(toThumbPath(path)));
+
+      paths.forEach((path) => {
+        tiles.push({ path, card, pageName: page.dataset.page });
+      });
+    });
+  });
+
+  // 3D PROJECT는 프로젝트마다 대표(메인) 사진 한 장만: 목록 카드에 쓰인 사진
+  document.querySelectorAll("[data-p3d-card]").forEach((card) => {
+    const pageName = card.closest("[data-page]")?.dataset.page;
+    const cover = card.querySelector("img")?.getAttribute("src");
+
+    if (cover) {
+      tiles.push({ path: toThumbPath(cover), card, pageName });
+    }
+  });
+
+  const fragment = document.createDocumentFragment();
+
+  shuffle(tiles).forEach(({ path, card, pageName }) => {
+    const title = card.dataset.previewTitle || card.dataset.title || card.textContent.trim();
+    const button = document.createElement("button");
+    const image = document.createElement("img");
+    const label = document.createElement("span");
+
+    button.type = "button";
+    button.className = "home-pile-item";
+    button.setAttribute("aria-label", `${title} 상세 보기`);
+    image.src = path;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.draggable = false;
+    image.addEventListener("error", () => button.remove(), { once: true });
+    label.className = "home-pile-label";
+    label.textContent = title;
+
+    button.addEventListener("click", () => {
+      showPage(pageName);
+      card.click();
+    });
+
+    button.append(image, label);
+    fragment.append(button);
+  });
+
+  homePile.append(fragment);
+}
+
+buildHomePile();
+
+// 3D PROJECT: 목록 → 상세(큰 이미지 슬라이드 + 하단 썸네일). 자동 넘김 간격은 PLASTER 상세와 같은 6초
+const p3dPage = document.querySelector("[data-p3d-page]");
+
+if (p3dPage) {
+  const p3dDelay = 6000;
+  const p3dCards = Array.from(p3dPage.querySelectorAll("[data-p3d-card]"));
+  const p3dIndex = p3dPage.querySelector("[data-p3d-index]");
+  const p3dDetail = p3dPage.querySelector("[data-p3d-detail]");
+  const p3dMain = p3dPage.querySelector("[data-p3d-main]");
+  const p3dStrip = p3dPage.querySelector("[data-p3d-strip]");
+  const p3dTitle = p3dPage.querySelector("[data-p3d-title]");
+  const p3dMeta = p3dPage.querySelector("[data-p3d-meta]");
+  const p3dCount = p3dPage.querySelector("[data-p3d-count]");
+  const p3dNextProject = p3dPage.querySelector("[data-p3d-next-project]");
+  let p3dImages = [];
+  let p3dCurrent = 0;
+  let p3dTimer = null;
+  let p3dCard = null;
+
+  const pad = (number) => String(number).padStart(2, "0");
+
+  function p3dShow(index) {
+    if (!p3dImages.length) {
+      return;
+    }
+
+    p3dCurrent = (index + p3dImages.length) % p3dImages.length;
+    const path = p3dImages[p3dCurrent];
+
+    if (p3dMain.getAttribute("src") !== path) {
+      p3dMain.classList.remove("is-shown");
+      p3dMain.src = path;
+    }
+
+    if (p3dMain.complete && p3dMain.naturalWidth > 0) {
+      p3dMain.classList.add("is-shown");
+    }
+
+    p3dMain.alt = `${p3dCard?.dataset.title || "Project"} ${p3dCurrent + 1}`;
+    p3dCount.textContent = `${pad(p3dCurrent + 1)} / ${pad(p3dImages.length)}`;
+
+    Array.from(p3dStrip.children).forEach((thumb, thumbIndex) => {
+      const isActive = thumbIndex === p3dCurrent;
+      thumb.classList.toggle("is-active", isActive);
+
+      if (isActive) {
+        p3dStrip.scrollTo({
+          left: thumb.offsetLeft - (p3dStrip.clientWidth - thumb.offsetWidth) / 2,
+          behavior: "smooth",
+        });
+      }
+    });
+
+    // 다음 이미지를 미리 받아둠
+    const nextImage = new Image();
+    nextImage.src = p3dImages[(p3dCurrent + 1) % p3dImages.length];
+  }
+
+  p3dMain.addEventListener("load", () => p3dMain.classList.add("is-shown"));
+
+  function p3dStop() {
+    clearInterval(p3dTimer);
+    p3dTimer = null;
+  }
+
+  function p3dRestart() {
+    p3dStop();
+
+    if (!p3dDetail.hidden && p3dImages.length > 1) {
+      p3dTimer = setInterval(() => p3dShow(p3dCurrent + 1), p3dDelay);
+    }
+  }
+
+  function p3dGo(step) {
+    p3dShow(p3dCurrent + step);
+    p3dRestart();
+  }
+
+  function p3dOpen(card) {
+    p3dCard = card;
+    p3dImages = (card.dataset.images || "")
+      .split("|")
+      .map((path) => path.trim())
+      .filter(Boolean);
+    p3dTitle.textContent = card.dataset.title || "";
+    p3dMeta.textContent = card.dataset.meta || "";
+
+    p3dStrip.replaceChildren(...p3dImages.map((path, index) => {
+      const thumb = document.createElement("button");
+      const image = document.createElement("img");
+
+      thumb.type = "button";
+      thumb.setAttribute("aria-label", `Image ${index + 1}`);
+      image.src = toThumbPath(path);
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      thumb.append(image);
+      thumb.addEventListener("click", () => {
+        p3dShow(index);
+        p3dRestart();
+      });
+      return thumb;
+    }));
+
+    p3dIndex.hidden = true;
+    p3dDetail.hidden = false;
+    window.scrollTo(0, 0);
+    p3dMain.removeAttribute("src");
+    p3dShow(0);
+    p3dRestart();
+  }
+
+  function p3dClose() {
+    p3dStop();
+    p3dDetail.hidden = true;
+    p3dIndex.hidden = false;
+    window.scrollTo(0, 0);
+  }
+
+  p3dCards.forEach((card) => card.addEventListener("click", () => p3dOpen(card)));
+  p3dPage.querySelector("[data-p3d-back]").addEventListener("click", p3dClose);
+  p3dPage.querySelector("[data-p3d-prev]").addEventListener("click", () => p3dGo(-1));
+  p3dPage.querySelector("[data-p3d-next]").addEventListener("click", () => p3dGo(1));
+
+  p3dNextProject.hidden = p3dCards.length < 2;
+  p3dNextProject.addEventListener("click", () => {
+    const index = p3dCards.indexOf(p3dCard);
+    p3dOpen(p3dCards[(index + 1) % p3dCards.length]);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (p3dDetail.hidden || !p3dPage.classList.contains("is-active")) {
+      return;
+    }
+
+    if (event.key === "ArrowLeft") {
+      p3dGo(-1);
+    } else if (event.key === "ArrowRight") {
+      p3dGo(1);
+    } else if (event.key === "Escape") {
+      p3dClose();
+    }
+  });
+
+  // 다른 페이지로 가거나 메뉴에서 3D PROJECT를 다시 누르면 목록으로
+  portfolioControllers.set(p3dPage.dataset.page, { closeDetail: p3dClose });
 }
